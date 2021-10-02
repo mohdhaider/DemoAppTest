@@ -29,9 +29,20 @@ class ContentListTableViewController: UITableViewController {
     
     private let tableSerialQueue = DispatchQueue(label: "com.demo.serialQueue")
     
+    private enum TableSections: NSInteger, CaseIterable {
+        case contents
+        case loadingIndicator
+    }
+    
+    private var tableStatusMessage:String?
+    
+    // MARK:- Controller Lifecycle -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = ScreenTitles.contents.rawValue
+        
         initialSetup()
     }
     
@@ -48,6 +59,8 @@ class ContentListTableViewController: UITableViewController {
     private func dataBinding() {
         
         func updateInfo(stopRefreshing stop:Bool, showMessage message: String?) {
+            
+            tableStatusMessage = message
             
             moveToMainThread {[weak self] in
                 
@@ -76,29 +89,45 @@ class ContentListTableViewController: UITableViewController {
                 
                 print("error = \(error)")
                 
-                if error == .clearResults {
+                if error == .noInternetAvailable {
+                    UIAlertController.showNoInternetAlert()
+                    
+                    updateInfo(stopRefreshing: true, showMessage: nil)
+                    
+                    self?.tableStatusMessage = AppMessages.noConnectionMessage.rawValue
+                }
+                else if error == .noTaskResults {
+                    
+                    updateInfo(stopRefreshing: true, showMessage: nil)
+                }
+                else if error == .noMoreResultsAvailable {
+                    
+                    updateInfo(stopRefreshing: true, showMessage: AppMessages.noMoreRecordsAvailable.rawValue)
+                }
+                else if error == .clearResults {
                     
                     if self?.viewModel.numberOfRecords() ?? 0 > 0 {
                         updateInfo(stopRefreshing: false, showMessage: nil)
                     } else {
-                        updateInfo(stopRefreshing: false, showMessage: nil)
+                        if self?.viewModel.isFetchingResults() ?? false || self?.viewModel.isFetchingNextBatch() ?? false {
+                            updateInfo(stopRefreshing: false, showMessage: nil)
+                        } else {
+                            updateInfo(stopRefreshing: true, showMessage: AppMessages.noDataAvailable.rawValue)
+                        }
                     }
-                } else {
+                }
+                else {
                     if self?.viewModel.numberOfRecords() ?? 0 > 0 {
                         updateInfo(stopRefreshing: true, showMessage: nil)
                     } else {
                         updateInfo(stopRefreshing: true, showMessage: AppMessages.noDataAvailable.rawValue)
                     }
                 }
-                
-                self?.refreshTable()
             }
             else if let records = result as? [ContentCellInfoProtocol] {
                 
                 print("records = \(records.count)")
-                
-                self?.refreshTable()
-                
+                                
                 if self?.viewModel.numberOfRecords() ?? 0 > 0 {
                     updateInfo(stopRefreshing: true, showMessage: nil)
                 } else {
@@ -112,6 +141,7 @@ class ContentListTableViewController: UITableViewController {
                     updateInfo(stopRefreshing: true, showMessage: AppMessages.noDataAvailable.rawValue)
                 }
             }
+            self?.refreshTable()
         }
     }
 }
@@ -154,7 +184,7 @@ extension ContentListTableViewController {
             if let selfObj = self,
                selfObj.refreshControlTable.isRefreshing {
                 
-                selfObj.refreshControlTable.endRefreshing()
+                selfObj.refreshControlTable.programaticallyEndRefreshing(in: selfObj.tableView)
             }
         }
     }
@@ -169,6 +199,7 @@ extension ContentListTableViewController {
         self.tableView.addSubview(refreshControlTable)
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: XibIdentifiers.defaultCell)
+        self.tableView.register(UINib(nibName: "StatusTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: XibIdentifiers.statusCell)
     }
     
     private func refreshTable() {
@@ -186,32 +217,70 @@ extension ContentListTableViewController {
 extension ContentListTableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return TableSections.allCases.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRecords()
+        
+        switch section {
+        case TableSections.contents.rawValue:
+            
+            return viewModel.numberOfRecords()
+        case TableSections.loadingIndicator.rawValue:
+            
+            if viewModel.isFetchingNextBatch() {
+                return 1
+            }
+            else if let message = tableStatusMessage, !message.isEmpty {
+                return 1
+            }
+        default:
+            break
+        }
+        
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.defaultCell, for: indexPath)
 
-        if let info = viewModel.recordForIndex(indexPath.row),
-           let tableCell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.contentCell, for: indexPath) as? ContentTableViewCell {
+        switch indexPath.section {
             
-            tableCell.populateInfo(info)
-            
-            cell = tableCell
-        }
+        case TableSections.contents.rawValue:
         
-        let recordsCount = viewModel.numberOfRecords()
-        
-        if recordsCount > 0,
-           indexPath.row == (recordsCount - 1),
-           viewModel.canFetchNextBatch() {
+            if let info = viewModel.recordForIndex(indexPath.row),
+               let tableCell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.contentCell, for: indexPath) as? ContentTableViewCell {
+                
+                tableCell.populateInfo(info)
+                
+                cell = tableCell
+            }
             
-            viewModel.getSearchResults(forNextPage: true)
+            let recordsCount = viewModel.numberOfRecords()
+            
+            if recordsCount > 0,
+               indexPath.row == (recordsCount - 1),
+               viewModel.canFetchNextBatch() {
+                
+                viewModel.getSearchResults(forNextPage: true)
+            }
+            
+        case TableSections.loadingIndicator.rawValue:
+            
+            if let tableCell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.statusCell, for: indexPath) as? StatusTableViewCell {
+                
+                if viewModel.isFetchingNextBatch() {
+                    tableCell.startLoading()
+                }
+                else {
+                    tableCell.showMessage(tableStatusMessage)
+                }
+                
+                cell = tableCell
+            }
+        default:
+            break
         }
         
         cell.selectionStyle = .none

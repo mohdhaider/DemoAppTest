@@ -21,6 +21,7 @@ class ContentsViewModel: NSObject {
         case processFinished
         case fetchingFreshResults
         case fetchingNextBatch
+        case noResultsAvailable
         case noMoreResultsAvailable
     }
     
@@ -40,23 +41,29 @@ class ContentsViewModel: NSObject {
     
     func getSearchResults(forNextPage nextPage:Bool = false) {
         
-        guard (fetchRule != .fetchingFreshResults || fetchRule != .fetchingNextBatch) else {
+        if fetchRule == .fetchingFreshResults || fetchRule == .fetchingNextBatch {
             
             viewModelCallbacks.value = ContentsViewModelErrors.taskApiInProgress
             
             return
         }
         
-        guard fetchRule != .noMoreResultsAvailable else {
-            
-            viewModelCallbacks.value = ContentsViewModelErrors.noTaskResults
-            
-            return
+        func resetPageNumber() {
+            pageNum -= 1
         }
         
         if nextPage {
+            
+            guard fetchRule != .noMoreResultsAvailable else {
+                
+                viewModelCallbacks.value = ContentsViewModelErrors.noMoreResultsAvailable
+                
+                return
+            }
+            
             fetchRule = .fetchingNextBatch
             pageNum += 1
+            viewModelCallbacks.value = ContentsViewModelErrors.taskApiInProgress
         } else {
             fetchRule = .fetchingFreshResults
             pageNum = 1
@@ -65,35 +72,69 @@ class ContentsViewModel: NSObject {
         
         let clearPreviousResults = (pageNum == 1) ? true : false
         
-        networkManager.fetchContent(intractor, .fetchData(page: pageNum)) {[weak self] (data, response, error) in
+        InternetHandler.shared.checkNetworkAvailability {[weak self] isAvailable in
             
-            self?.fetchRule = .processFinished
-            
-            do {
-                if let dataAvail = data {
+            if isAvailable,
+            let selfObj = self{
+
+                selfObj.callCodeBlock(afterDelay: 2.0) {
                     
-                    let response = try JSONDecoder().decode([ContentResult].self, from: dataAvail)
-                    
-                    if response.count > 0 {
+                    selfObj.networkManager.fetchContent(selfObj.intractor, .fetchData(page: selfObj.pageNum)) {[weak self] (data, response, error) in
                         
-                        if clearPreviousResults {
-                            self?.results = []
+                        self?.fetchRule = .processFinished
+                        
+                        do {
+                            if let dataAvail = data {
+                                
+                                let response = try JSONDecoder().decode([ContentResult].self, from: dataAvail)
+                                
+                                if response.count > 0 {
+                                    
+                                    if clearPreviousResults {
+                                        self?.results = []
+                                    }
+                                    
+                                    self?.results.append(contentsOf: response)
+                                    
+                                    self?.viewModelCallbacks.value = self?.results ?? []
+                                }
+                                else {
+                                    resetPageNumber()
+                                    
+                                    if clearPreviousResults {
+                                        
+                                        self?.fetchRule = .noResultsAvailable
+                                        self?.viewModelCallbacks.value = ContentsViewModelErrors.noTaskResults
+                                    } else {
+                                        self?.fetchRule = .noMoreResultsAvailable
+                                        self?.viewModelCallbacks.value = ContentsViewModelErrors.noMoreResultsAvailable
+                                    }
+                                }
+                            } else {
+                                
+                                resetPageNumber()
+                                
+                                if let error = error,
+                                   error.isNoInternetError() == true {
+                                    
+                                    self?.viewModelCallbacks.value = ContentsViewModelErrors.noInternetAvailable
+                                } else {
+                                    
+                                    self?.viewModelCallbacks.value = ContentsViewModelErrors.taskApiFailed
+                                }
+                            }
+                        } catch {
+                            print("error = \(error)")
+                            
+                            resetPageNumber()
+                            self?.viewModelCallbacks.value = ContentsViewModelErrors.taskResultParsingFailed
                         }
-                        
-                        self?.results.append(contentsOf: response)
-                        
-                        self?.viewModelCallbacks.value = self?.results ?? []
                     }
-                    else {
-                        self?.fetchRule = .noMoreResultsAvailable
-                        self?.viewModelCallbacks.value = ContentsViewModelErrors.noTaskResults
-                    }
-                } else {
-                    self?.viewModelCallbacks.value = ContentsViewModelErrors.taskApiFailed
                 }
-            } catch {
-                print("error = \(error)")
-                self?.viewModelCallbacks.value = ContentsViewModelErrors.taskResultParsingFailed
+            } else {
+                self?.fetchRule = .processFinished
+                resetPageNumber()
+                self?.viewModelCallbacks.value = ContentsViewModelErrors.noInternetAvailable
             }
         }
     }
@@ -111,19 +152,19 @@ extension ContentsViewModel {
         return (index < results.count) ? results[index] : nil
     }
     
-    private func isFetchingResults() -> Bool {
+    func isFetchingResults() -> Bool {
         
         return (fetchRule == .fetchingFreshResults) ? true : false
     }
     
-    private func isFetchingNextBatch() -> Bool {
+    func isFetchingNextBatch() -> Bool {
         
         return (fetchRule == .fetchingNextBatch) ? true : false
     }
     
     func canFetchNextBatch() -> Bool {
         
-        if fetchRule == .noMoreResultsAvailable {
+        if fetchRule == .noMoreResultsAvailable || fetchRule == .noResultsAvailable {
             return false
         }
         else if isFetchingNextBatch() {
@@ -142,4 +183,6 @@ enum ContentsViewModelErrors: String, Error {
     case taskResultParsingFailed
     case clearResults
     case noTaskResults
+    case noMoreResultsAvailable
+    case noInternetAvailable
 }

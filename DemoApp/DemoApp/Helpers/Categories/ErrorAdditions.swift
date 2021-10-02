@@ -7,6 +7,21 @@
 
 import UIKit
 
-class ErrorAdditions: NSObject {
-
+extension Error {
+    
+    func isNoInternetError() -> Bool {
+        
+        var success = false
+        let val = (self as NSError).code
+        
+        switch val {
+        case NSURLErrorCannotFindHost, NSURLErrorCannotConnectToHost, NSURLErrorNetworkConnectionLost, NSURLErrorResourceUnavailable, NSURLErrorNotConnectedToInternet, NSURLErrorDataNotAllowed:
+            
+            success = true
+        default:
+            break
+        }
+        
+        return success
+    }
 }

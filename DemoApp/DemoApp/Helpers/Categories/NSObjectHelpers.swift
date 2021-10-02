@@ -31,4 +31,12 @@ extension NSObject {
             }
         }
     }
+    
+    func callCodeBlock(afterDelay delay:Double, _ completion:(() -> Void)?) {
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
+        
+            completion?()
+        }
+    }
 }
