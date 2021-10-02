@@ -12,4 +12,8 @@ extension UIImage {
     class func placeholderImage() -> UIImage? {
         return UIImage(named: "placeholder")
     }
+    
+    class func placeholderImageLarge() -> UIImage? {
+        return UIImage(named: "placeholder")
+    }
 }

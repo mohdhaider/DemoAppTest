@@ -21,10 +21,11 @@ enum AppMessages: String {
     case noConnectionMessage = "You seem to be having trouble with your internet connection. Please check it."
 }
 
-struct XibIdentifiers {
-    static let contentCell = "contentCell"
-    static let defaultCell = "defaultCell"
-    static let statusCell = "statusCell"
+enum XibIdentifiers:String {
+    case contentCell = "contentCell"
+    case defaultCell = "defaultCell"
+    case statusCell = "statusCell"
+    case contentDetailCell = "contentDetailCell"
 }
 
 enum NetworkingKeys: String {
@@ -33,4 +34,5 @@ enum NetworkingKeys: String {
 
 enum ScreenTitles:String {
     case contents = "Contents"
+    case contentDetail = "Content Details"
 }

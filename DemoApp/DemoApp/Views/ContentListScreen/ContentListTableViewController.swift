@@ -198,8 +198,8 @@ extension ContentListTableViewController {
 
         self.tableView.addSubview(refreshControlTable)
         
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: XibIdentifiers.defaultCell)
-        self.tableView.register(UINib(nibName: "StatusTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: XibIdentifiers.statusCell)
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: XibIdentifiers.defaultCell.rawValue)
+        self.tableView.register(UINib(nibName: "StatusTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: XibIdentifiers.statusCell.rawValue)
     }
     
     private func refreshTable() {
@@ -213,6 +213,8 @@ extension ContentListTableViewController {
         }
     }
 }
+
+// MARK: - Table view data source
 
 extension ContentListTableViewController {
     
@@ -243,14 +245,14 @@ extension ContentListTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.defaultCell, for: indexPath)
+        var cell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.defaultCell.rawValue, for: indexPath)
 
         switch indexPath.section {
             
         case TableSections.contents.rawValue:
         
             if let info = viewModel.recordForIndex(indexPath.row),
-               let tableCell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.contentCell, for: indexPath) as? ContentTableViewCell {
+               let tableCell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.contentCell.rawValue, for: indexPath) as? ContentTableViewCell {
                 
                 tableCell.populateInfo(info)
                 
@@ -268,7 +270,7 @@ extension ContentListTableViewController {
             
         case TableSections.loadingIndicator.rawValue:
             
-            if let tableCell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.statusCell, for: indexPath) as? StatusTableViewCell {
+            if let tableCell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.statusCell.rawValue, for: indexPath) as? StatusTableViewCell {
                 
                 if viewModel.isFetchingNextBatch() {
                     tableCell.startLoading()
@@ -289,3 +291,17 @@ extension ContentListTableViewController {
     }
 }
 
+// MARK: - Table view delegate
+
+extension ContentListTableViewController {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == TableSections.contents.rawValue,
+           indexPath.row < viewModel.numberOfRecords(),
+           let info = viewModel.recordForIndex(indexPath.row) {
+           
+            Router().showContentDetailScreen(forContent: info, fromController: self)
+        }
+    }
+}
