@@ -305,3 +305,21 @@ extension ContentListTableViewController {
         }
     }
 }
+
+// MARK: - Table view data source prefetching
+
+extension ContentListTableViewController: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+        for indexPath in indexPaths {
+            
+            if indexPath.section == TableSections.contents.rawValue,
+               indexPath.row < viewModel.numberOfRecords(),
+               let _ = viewModel.recordForIndex(indexPath.row) {
+                
+                
+            }
+        }
+    }
+}
