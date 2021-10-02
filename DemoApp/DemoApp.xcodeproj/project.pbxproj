@@ -20,6 +20,7 @@
 		C431518B2708CD8700687452 /* ErrorAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C431518A2708CD8700687452 /* ErrorAdditions.swift */; };
 		C431518F2708D78800687452 /* StatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C431518D2708D78800687452 /* StatusTableViewCell.swift */; };
 		C43151902708D78800687452 /* StatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C431518E2708D78800687452 /* StatusTableViewCell.xib */; };
+		C43151932708E8DC00687452 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151922708E8DC00687452 /* Logger.swift */; };
 		C4C0AEC82708976C0007431D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC72708976C0007431D /* AppDelegate.swift */; };
 		C4C0AECA2708976C0007431D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC92708976C0007431D /* SceneDelegate.swift */; };
 		C4C0AECF2708976C0007431D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C0AECD2708976C0007431D /* Main.storyboard */; };
@@ -80,6 +81,7 @@
 		C431518A2708CD8700687452 /* ErrorAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAdditions.swift; sourceTree = "<group>"; };
 		C431518D2708D78800687452 /* StatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewCell.swift; sourceTree = "<group>"; };
 		C431518E2708D78800687452 /* StatusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusTableViewCell.xib; sourceTree = "<group>"; };
+		C43151922708E8DC00687452 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		C4C0AEC42708976C0007431D /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C0AEC72708976C0007431D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4C0AEC92708976C0007431D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -210,6 +212,14 @@
 				C431518E2708D78800687452 /* StatusTableViewCell.xib */,
 			);
 			path = StatusCell;
+			sourceTree = "<group>";
+		};
+		C43151912708E8CA00687452 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				C43151922708E8DC00687452 /* Logger.swift */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		C4C0AEBB2708976C0007431D = {
@@ -381,6 +391,7 @@
 		C4C0AF0D2708982A0007431D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C43151912708E8CA00687452 /* Logger */,
 				C43151822708AEB300687452 /* Extentions */,
 			);
 			path = Utilities;
@@ -661,6 +672,7 @@
 				C4C0AF242708982A0007431D /* DateAdditions.swift in Sources */,
 				C43151692708A1D200687452 /* ContentResult.swift in Sources */,
 				C4C0AF1B2708982A0007431D /* UrlParametersEncoding.swift in Sources */,
+				C43151932708E8DC00687452 /* Logger.swift in Sources */,
 				C431518F2708D78800687452 /* StatusTableViewCell.swift in Sources */,
 				C4C0AF172708982A0007431D /* NetworkIntractor.swift in Sources */,
 				C4C0AEC82708976C0007431D /* AppDelegate.swift in Sources */,

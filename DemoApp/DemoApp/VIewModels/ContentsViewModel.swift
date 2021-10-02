@@ -124,7 +124,7 @@ class ContentsViewModel: NSObject {
                                 }
                             }
                         } catch {
-                            print("error = \(error)")
+                            Logger.printLog("error = \(error)")
                             
                             resetPageNumber()
                             self?.viewModelCallbacks.value = ContentsViewModelErrors.taskResultParsingFailed

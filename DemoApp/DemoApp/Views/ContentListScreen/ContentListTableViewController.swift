@@ -87,7 +87,7 @@ class ContentListTableViewController: UITableViewController {
             
             if let error = result as? ContentsViewModelErrors {
                 
-                print("error = \(error)")
+                Logger.printLog("error = \(error)")
                 
                 if error == .noInternetAvailable {
                     UIAlertController.showNoInternetAlert()
@@ -126,7 +126,7 @@ class ContentListTableViewController: UITableViewController {
             }
             else if let records = result as? [ContentCellInfoProtocol] {
                 
-                print("records = \(records.count)")
+                Logger.printLog("records = \(records.count)")
                                 
                 if self?.viewModel.numberOfRecords() ?? 0 > 0 {
                     updateInfo(stopRefreshing: true, showMessage: nil)
