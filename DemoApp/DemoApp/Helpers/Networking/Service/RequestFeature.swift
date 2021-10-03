@@ -8,6 +8,5 @@
 import Foundation
 
 enum RequestFeature {
-    case request
     case requestWithParameters(encoding: ParametersEncodign, urlParameters: Parameters, bodyParameters: Parameters, headers: Parameters)
 }

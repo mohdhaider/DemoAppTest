@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import DemoApp
 
 class InternetConnectionTests: XCTestCase {
 
@@ -17,16 +18,96 @@ class InternetConnectionTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testInternetConnectionStatusChecks() throws {
+        
+        var activityExpectation: XCTestExpectation?
+        
+        let name = "Internet connection status check"
+        let expectationName = "\(name) waiting"
+        
+        XCTContext.runActivity(named: name) { _ in
+            
+            waitForTimeout(for: 10,
+                              exceptionName: expectationName) { expectation in
+                
+                activityExpectation = expectation
+                
+                InternetHandler.shared.checkInternetConnectionCases {[weak self] status in
+                    
+                    if status {
+                        self?.fullFillExpectation(&activityExpectation)
+                    }
+                }
+            }
         }
     }
-
+    
+    func testReachabilityStatusIfWifiAvailable() throws {
+        
+        var activityExpectation: XCTestExpectation?
+        
+        let name = "Reachability Status If Wifi Available"
+        let expectationName = "\(name) waiting"
+        
+        XCTContext.runActivity(named: name) { _ in
+            
+            waitForTimeout(for: 10,
+                              exceptionName: expectationName) {[weak self] expectation in
+                
+                activityExpectation = expectation
+                
+                let status = InternetHandler.shared.checkReachabilityStatusIfWifiAvailable()
+                
+                if status {
+                    self?.fullFillExpectation(&activityExpectation)
+                }
+            }
+        }
+    }
+    
+    func testReachabilityStatusIfCellularAvailable() throws {
+        
+        var activityExpectation: XCTestExpectation?
+        
+        let name = "Reachability Status If Cellular Available"
+        let expectationName = "\(name) waiting"
+        
+        XCTContext.runActivity(named: "Internet connection status check") { _ in
+            
+            waitForTimeout(for: 10,
+                              exceptionName: expectationName) {[weak self] expectation in
+                
+                activityExpectation = expectation
+                
+                let status = InternetHandler.shared.checkReachabilityStatusIfCellularAvailable()
+                
+                if status {
+                    self?.fullFillExpectation(&activityExpectation)
+                }
+            }
+        }
+    }
+    
+    func testNoInternetIfConnectionUnavailable() throws {
+        
+        var activityExpectation: XCTestExpectation?
+        
+        let name = "No Internet If Connection Unavailable"
+        let expectationName = "\(name) waiting"
+        
+        XCTContext.runActivity(named: name) { _ in
+            
+            waitForTimeout(for: 10,
+                              exceptionName: expectationName) {[weak self] expectation in
+                
+                activityExpectation = expectation
+                
+                let status = InternetHandler.shared.checkNoInternetIfConnectionUnavailable()
+                
+                if status {
+                    self?.fullFillExpectation(&activityExpectation)
+                }
+            }
+        }
+    }
 }

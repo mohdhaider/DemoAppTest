@@ -13,7 +13,6 @@ enum HTTPType: String {
 }
 
 protocol RequestInfo {
-    var httpType: HTTPType {get}
     var requestURL: URL {get}
     var requestType: RequestFeature {get}
 }

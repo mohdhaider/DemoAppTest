@@ -7,6 +7,8 @@
 
 import Foundation
 
+let networkRequestTimeout:Double = 60.0
+
 typealias NetworkRequestCompletion = (_ data:Data?, _ response: URLResponse?, _ error: Error?) -> ()
 
 protocol NetworkHandlerProtocol {
@@ -22,7 +24,7 @@ class NetworkHandler<Info: RequestInfo>: NetworkHandlerProtocol {
     func request(_ requestInfo: Info, completion completionBlock: @escaping NetworkRequestCompletion) {
         
         let session = URLSession.shared
-        var request = URLRequest(url: requestInfo.requestURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 60)
+        var request = URLRequest(url: requestInfo.requestURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: networkRequestTimeout)
         
         do {
             try buildRequest(&request, requestInfo: requestInfo)
@@ -40,18 +42,9 @@ class NetworkHandler<Info: RequestInfo>: NetworkHandlerProtocol {
     private func buildRequest(_ request: inout URLRequest, requestInfo: Info) throws {
         
         switch requestInfo.requestType {
-        case .requestWithParameters(let encoding, let urlParameters, let bodyParameters, let headers):
+        case .requestWithParameters(let encoding, let urlParameters, let bodyParameters, _):
             
             try encoding.encode(&request, urlParameters: urlParameters, bodyParameters: bodyParameters)
-            addHeaders(request: &request, headers)
-        default:
-            break
-        }
-    }
-    
-    private func addHeaders(request  req: inout URLRequest, _ headers: Parameters) {
-        for (key, value) in headers {
-            req.setValue("\(value)", forHTTPHeaderField: key)
         }
     }
 }

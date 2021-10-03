@@ -38,4 +38,13 @@ extension NSObject {
             completion?()
         }
     }
+    
+    func performAsyncBlock(_ block:(() -> Void)?) {
+     
+        moveToMainThread {
+            DispatchQueue.global().async {
+                block?()
+            }
+        }
+    }
 }

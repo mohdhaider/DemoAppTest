@@ -10,9 +10,9 @@ import XCTest
 
 extension XCTestCase {
     
-    func waitForTimeout(for duration: TimeInterval, callback back:((XCTestExpectation) -> Void)?) {
-        let waitExpectation = expectation(description: "Waiting")
-        //waitExpectation.isInverted = true
+    func waitForTimeout(for duration: TimeInterval, exceptionName name:String, callback back:((XCTestExpectation) -> Void)?) {
+        
+        let waitExpectation = expectation(description: name)
         back?(waitExpectation)
         // We use a buffer here to avoid flakiness with Timer on CI
         waitForExpectations(timeout: duration + 0.5)
@@ -22,5 +22,13 @@ extension XCTestCase {
         
         let viewExists = element.waitForExistence(timeout: wait)
         XCTAssertTrue(viewExists)
+    }
+    
+    func fullFillExpectation(_ activityExpectation: inout XCTestExpectation?) {
+        
+        if activityExpectation != nil {
+            activityExpectation?.fulfill()
+            activityExpectation = nil
+        }
     }
 }

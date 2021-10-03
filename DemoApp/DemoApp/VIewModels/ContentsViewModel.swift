@@ -31,6 +31,9 @@ class ContentsViewModel: NSObject {
     
     private var pageNum:Int = 0
     
+    // For testing
+    private var batchCount:Int = 0
+    
     // MARK:- Helpers -
     
     func clearContent() {
@@ -67,17 +70,19 @@ class ContentsViewModel: NSObject {
         } else {
             fetchRule = .fetchingFreshResults
             pageNum = 1
+            batchCount = 0
             clearContent()
         }
         
         let clearPreviousResults = (pageNum == 1) ? true : false
         
-        InternetHandler.shared.checkNetworkAvailability {[weak self] isAvailable in
+        let isAvailable = InternetHandler.shared.isInternetConnectionAvailable
+        
+        if isAvailable{
             
-            if isAvailable,
-            let selfObj = self{
-
-                selfObj.callCodeBlock(afterDelay: 2.0) {
+            self.callCodeBlock(afterDelay: 2.0) {[weak self] in
+                
+                if let selfObj = self {
                     
                     selfObj.helper.fetchContent(selfObj.handler, .fetchData(page: selfObj.pageNum)) {[weak self] (data, response, error) in
                         
@@ -92,6 +97,7 @@ class ContentsViewModel: NSObject {
                                     
                                     if clearPreviousResults {
                                         self?.results = []
+                                        self?.batchCount = response.count
                                     }
                                     
                                     self?.results.append(contentsOf: response)
@@ -131,11 +137,11 @@ class ContentsViewModel: NSObject {
                         }
                     }
                 }
-            } else {
-                self?.fetchRule = .processFinished
-                resetPageNumber()
-                self?.viewModelCallbacks.value = ContentsViewModelErrors.noInternetAvailable
             }
+        } else {
+            fetchRule = .processFinished
+            resetPageNumber()
+            viewModelCallbacks.value = ContentsViewModelErrors.noInternetAvailable
         }
     }
 }
@@ -178,6 +184,7 @@ extension ContentsViewModel {
 }
 
 enum ContentsViewModelErrors: String, Error {
+    case others
     case taskApiInProgress
     case taskApiFailed
     case taskResultParsingFailed
@@ -185,4 +192,110 @@ enum ContentsViewModelErrors: String, Error {
     case noTaskResults
     case noMoreResultsAvailable
     case noInternetAvailable
+}
+
+// MARK:- Tests Helpers -
+
+extension ContentsViewModel {
+    
+    func checkNoInternetCase() {
+        
+        InternetHandler.shared.makeInternetNotAvailable()
+        fetchRule = .processFinished
+        getSearchResults()
+    }
+    
+    func checkAlreadyDataFetchingTestCase() {
+        
+        fetchRule = .fetchingFreshResults
+        getSearchResults()
+    }
+    
+    func checkNoMoreDataForNextBatch() {
+        
+        fetchRule = .noMoreResultsAvailable
+        getSearchResults(forNextPage: true)
+    }
+    
+    func doesHaveDataForNextBatch() -> Bool {
+        
+        return results.count > 0 && results.count >= batchCount
+    }
+    
+    func checkMoreDataApi() {
+        
+        InternetHandler.shared.startNetworkReachabilityObserver()
+        InternetHandler.shared.makeInternetAvailable()
+        
+        fetchRule = .processFinished
+        
+        func firstBatch() {
+            getSearchResults()
+        }
+        
+        func secondBatch() {
+
+            fetchRule = .noMoreResultsAvailable
+            
+            var canFetch = canFetchNextBatch()
+            
+            fetchRule = .noResultsAvailable
+            
+            canFetch = canFetchNextBatch()
+            
+            fetchRule = .fetchingNextBatch
+            
+            canFetch = canFetchNextBatch()
+            
+            fetchRule = .fetchingFreshResults
+            
+            canFetch = canFetchNextBatch()
+            
+            fetchRule = .processFinished
+            
+            canFetch = canFetchNextBatch()
+            
+            if canFetch {
+                
+                getSearchResults(forNextPage: true)
+            }
+        }
+        
+        viewModelCallbacks.bind {[weak self] result in
+            
+            self?.moveToMainThread({[weak self] in
+                
+                Logger.printLog("checkMoreDataApi >> result = \(String(describing: result))")
+                
+                if let records = result as? [ContentResult],
+                   records.count > 0,
+                   self?.pageNum ?? 0 == 1 {
+                    secondBatch()
+                }
+            })
+        }
+        
+        firstBatch()
+    }
+    
+    func setupMockData(_ completion:(([ContentResult]?) -> Void)?) {
+        
+        performAsyncBlock {[weak self] in
+            
+            if let fileUrl = Bundle.main.url(forResource: "MockData", withExtension: "json"),
+               let fileData = try? Data(contentsOf: fileUrl),
+               let response = try? JSONDecoder().decode([ContentResult].self, from: fileData){
+                
+                self?.results = response
+                self?.fetchRule = .processFinished
+                self?.moveToMainThread({
+                    completion?(response)
+                })
+            }
+        }
+    }
+    
+    func resetFetchRule() {
+        fetchRule = .processFinished
+    }
 }

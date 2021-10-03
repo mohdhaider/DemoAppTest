@@ -28,11 +28,4 @@ struct BindingBox<Element> {
         
         listeners.append(listenerAvail)
     }
-    
-    mutating func singleBind(_ listener: Listener?) {
-        
-        listeners.removeAll()
-        guard let listenerAvail = listener else { return }
-        listeners.append(listenerAvail)
-    }
 }

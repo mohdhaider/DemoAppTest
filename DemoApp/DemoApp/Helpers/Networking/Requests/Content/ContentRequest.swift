@@ -12,9 +12,6 @@ enum ContentRequest {
 }
 
 extension ContentRequest : RequestInfo {
-    var httpType: HTTPType {
-        return .get
-    }
     
     var requestURL: URL {
         

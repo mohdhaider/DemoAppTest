@@ -15,19 +15,12 @@ protocol EncodingProtocol {
 
 enum ParametersEncodign {
     case urlEncoding
-    case jsonEncoding
-    case urlAndJsonEncoding
     
     func encode(_ request: inout URLRequest, urlParameters urlParams: Parameters, bodyParameters bodyParams: Parameters) throws {
         
         switch self {
         case .urlEncoding:
             try UrlParametersEncoding().encode(&request, parameters: urlParams)
-        case .jsonEncoding:
-            try JsonParametersEncoding().encode(&request, parameters: bodyParams)
-        case .urlAndJsonEncoding:
-            try UrlParametersEncoding().encode(&request, parameters: urlParams)
-            try JsonParametersEncoding().encode(&request, parameters: bodyParams)
         }
     }
 }

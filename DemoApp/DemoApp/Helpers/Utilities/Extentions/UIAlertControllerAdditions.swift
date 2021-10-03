@@ -52,7 +52,7 @@ extension UIAlertController {
                 alertController.showAlertController(fromController: controller, sourceView: view, popupDirection: direction)
             } else {
                 let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-                if var controller = keyWindow?.rootViewController {
+                if let controller = keyWindow?.rootViewController {
                     alertController.showAlertController(fromController: controller, sourceView: view, popupDirection: direction)
                 }
             }
@@ -98,7 +98,6 @@ extension UIAlertController {
     func showAlertController(fromController controller:UIViewController, sourceView view: Any?, popupDirection arrowDirection: Int) {
         
         NSObject.moveToMainThread{
-            //guard UIApplication.shared.applicationState == .active else { return }
             
             var direction: UIPopoverArrowDirection = .any
             

@@ -37,12 +37,17 @@ class ContentListTableViewController: UITableViewController {
     
     private var tableStatusMessage:String?
     
+    var presenter:ContentListTableViewPresenter?
+    
     // MARK:- Controller Lifecycle -
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = ScreenTitles.contents.rawValue
+        
+        presenter?.setTitle(self.title)
+        presenter?.onViewDidLoad()
         
         initialSetup()
     }
@@ -93,19 +98,27 @@ class ContentListTableViewController: UITableViewController {
                 if error == .noInternetAvailable {
                     UIAlertController.showNoInternetAlert()
                     
+                    self?.presenter?.errorType = .noInternetAvailable
+                    
                     updateInfo(stopRefreshing: true, showMessage: nil)
                     
                     self?.tableStatusMessage = AppMessages.noConnectionMessage.rawValue
                 }
                 else if error == .noTaskResults {
                     
+                    self?.presenter?.errorType = .noTaskResults
+                    
                     updateInfo(stopRefreshing: true, showMessage: nil)
                 }
                 else if error == .noMoreResultsAvailable {
                     
+                    self?.presenter?.errorType = .noMoreResultsAvailable
+                    
                     updateInfo(stopRefreshing: true, showMessage: AppMessages.noMoreRecordsAvailable.rawValue)
                 }
                 else if error == .clearResults {
+                    
+                    self?.presenter?.errorType = .clearResults
                     
                     if self?.viewModel.numberOfRecords() ?? 0 > 0 {
                         updateInfo(stopRefreshing: false, showMessage: nil)
@@ -118,6 +131,8 @@ class ContentListTableViewController: UITableViewController {
                     }
                 }
                 else {
+                    self?.presenter?.errorType = .others
+                    
                     if self?.viewModel.numberOfRecords() ?? 0 > 0 {
                         updateInfo(stopRefreshing: true, showMessage: nil)
                     } else {
@@ -129,6 +144,8 @@ class ContentListTableViewController: UITableViewController {
                 
                 Logger.printLog("records = \(records.count)")
                                 
+                self?.presenter?.tableRowsCount = self?.viewModel.numberOfRecords() ?? 0
+                
                 if self?.viewModel.numberOfRecords() ?? 0 > 0 {
                     updateInfo(stopRefreshing: true, showMessage: nil)
                 } else {
@@ -136,6 +153,8 @@ class ContentListTableViewController: UITableViewController {
                 }
             }
             else {
+                self?.presenter?.tableRowsCount = self?.viewModel.numberOfRecords() ?? 0
+                
                 if self?.viewModel.numberOfRecords() ?? 0 > 0 {
                     updateInfo(stopRefreshing: true, showMessage: nil)
                 } else {
@@ -228,7 +247,11 @@ extension ContentListTableViewController {
         switch section {
         case TableSections.contents.rawValue:
             
-            return viewModel.numberOfRecords()
+            let count = viewModel.numberOfRecords()
+            
+            presenter?.tableRowsCount = count
+            
+            return count
         case TableSections.loadingIndicator.rawValue:
             
             if viewModel.isFetchingNextBatch() {
@@ -274,6 +297,9 @@ extension ContentListTableViewController {
             if let tableCell = tableView.dequeueReusableCell(withIdentifier: XibIdentifiers.statusCell.rawValue, for: indexPath) as? StatusTableViewCell {
                 
                 if viewModel.isFetchingNextBatch() {
+                    
+                    presenter?.isShowingMoreLoadingIndicator = true
+                    
                     tableCell.startLoading()
                 }
                 else {
@@ -335,6 +361,128 @@ extension ContentListTableViewController: UITableViewDataSourcePrefetching {
                         })
                     }
             }
+        }
+    }
+}
+
+// MARK:- Test Helpers -
+
+extension ContentListTableViewController {
+    
+    func checkMockDataLoading(_ completion:((Bool) -> Void)?) {
+        
+        viewModel.setupMockData {[weak self] results in
+            
+            self?.moveToMainThread({
+                
+                if let results = results {
+                    
+                    self?.refreshTable()
+                    
+                    self?.callCodeBlock(afterDelay: 3.0, {[weak self] in
+                        
+                        if let rowsCount = self?.presenter?.tableRowsCount,
+                           rowsCount == results.count,
+                           let visibleRows = self?.tableView.visibleCells as? [ContentTableViewCell],
+                           visibleRows.count > 0 {
+                            
+                            completion?(true)
+                        }
+                    })
+                }
+            })
+        }
+    }
+    
+    func checkMockDataLoadingTestByViewModel(_ completion:(() -> Void)?) {
+        
+        viewModel.setupMockData {[weak self] results in
+            
+            self?.moveToMainThread({
+                
+                if let results = results {
+                    
+                    self?.viewModel.viewModelCallbacks.value = results
+                    
+                    self?.callCodeBlock(afterDelay: 3.0, {[weak self] in
+                        
+                        if let rowsCount = self?.presenter?.tableRowsCount,
+                           rowsCount == results.count{
+                            
+                            completion?()
+                        }
+                    })
+                }
+            })
+        }
+    }
+    
+    func checkingNoInternetAvailableCase() {
+        
+        viewModel.viewModelCallbacks.value = ContentsViewModelErrors.noInternetAvailable
+    }
+    
+    func checkingNoTaskResultsCase() {
+        
+        viewModel.viewModelCallbacks.value = ContentsViewModelErrors.noTaskResults
+    }
+    
+    func checkingNoMoreResultsAvailableCase() {
+        
+        viewModel.viewModelCallbacks.value = ContentsViewModelErrors.noMoreResultsAvailable
+    }
+    
+    func checkingClearResultsCase() {
+        
+        viewModel.viewModelCallbacks.value = ContentsViewModelErrors.clearResults
+    }
+    
+    func checkingOtherErrorsCase() {
+        
+        viewModel.viewModelCallbacks.value = ContentsViewModelErrors.others
+    }
+    
+    func checkManualRefreshCase(_ completion:(() -> Void)?) {
+        
+        handleRefresh()
+        
+        callCodeBlock(afterDelay: networkRequestTimeout) {[weak self] in
+            
+            if let presenter = self?.presenter,
+               presenter.tableRowsCount > 0 ||
+                (presenter.errorType == .noInternetAvailable || presenter.errorType == .noTaskResults) {
+                
+                completion?()
+            }
+        }
+    }
+    
+    func checkLoadingIndicatorWorking(_ completion:(() -> Void)?) {
+        
+        viewModel.setupMockData {[weak self] results in
+            
+            self?.moveToMainThread({[weak self] in
+                
+                self?.refreshTable()
+                
+                self?.callCodeBlock(afterDelay: 2.0, {
+                    
+                    if let count = self?.tableView.numberOfRows(inSection: TableSections.contents.rawValue),
+                       count > 0 {
+                        
+                        let lastIndex = IndexPath(row: (count - 1), section: TableSections.contents.rawValue)
+                        
+                        self?.viewModel.resetFetchRule()
+                        
+                        self?.tableView.scrollToRow(at: lastIndex, at: .bottom, animated: false)
+                        
+                        self?.callCodeBlock(afterDelay: 2) {
+                            
+                            completion?()
+                        }
+                    }
+                })
+            })
         }
     }
 }

@@ -32,6 +32,13 @@
 		C43151E72709954500687452 /* ImageDownloader.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43151E62709954500687452 /* ImageDownloader.xcframework */; };
 		C43151EA2709963B00687452 /* ImageDownloader.zip in Resources */ = {isa = PBXBuildFile; fileRef = C43151E92709963B00687452 /* ImageDownloader.zip */; };
 		C43151F02709B2AA00687452 /* XCTestExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151EF2709B2AA00687452 /* XCTestExtention.swift */; };
+		C43151F22709C6E200687452 /* InternetConnectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151F12709C6E200687452 /* InternetConnectionTests.swift */; };
+		C43151F42709D74F00687452 /* MockData.json in Resources */ = {isa = PBXBuildFile; fileRef = C43151F32709D74F00687452 /* MockData.json */; };
+		C43151F52709D74F00687452 /* MockData.json in Resources */ = {isa = PBXBuildFile; fileRef = C43151F32709D74F00687452 /* MockData.json */; };
+		C43151F72709DD6200687452 /* ContentListTableViewPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151F62709DD6200687452 /* ContentListTableViewPresenterMock.swift */; };
+		C43151F92709DF5700687452 /* ContentListTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151F82709DF5700687452 /* ContentListTableViewControllerTests.swift */; };
+		C43151FB2709E6EE00687452 /* ContentDetailsTableViewPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151FA2709E6EE00687452 /* ContentDetailsTableViewPresenterMock.swift */; };
+		C43151FD2709E84800687452 /* ContentDetailTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151FC2709E84800687452 /* ContentDetailTableViewControllerTests.swift */; };
 		C4C0AEC82708976C0007431D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC72708976C0007431D /* AppDelegate.swift */; };
 		C4C0AECA2708976C0007431D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC92708976C0007431D /* SceneDelegate.swift */; };
 		C4C0AECF2708976C0007431D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C0AECD2708976C0007431D /* Main.storyboard */; };
@@ -40,7 +47,6 @@
 		C4C0AEDF270897740007431D /* DemoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEDE270897740007431D /* DemoAppTests.swift */; };
 		C4C0AEE9270897740007431D /* DemoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEE8270897740007431D /* DemoAppUITests.swift */; };
 		C4C0AEEB270897740007431D /* DemoAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEEA270897740007431D /* DemoAppUITestsLaunchTests.swift */; };
-		C4C0AF192708982A0007431D /* JsonParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF032708982A0007431D /* JsonParametersEncoding.swift */; };
 		C4C0AF1A2708982A0007431D /* ParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF042708982A0007431D /* ParametersEncoding.swift */; };
 		C4C0AF1B2708982A0007431D /* UrlParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF052708982A0007431D /* UrlParametersEncoding.swift */; };
 		C4C0AF1C2708982A0007431D /* RequestFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF072708982A0007431D /* RequestFeature.swift */; };
@@ -49,9 +55,7 @@
 		C4C0AF1F2708982A0007431D /* DataObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF0C2708982A0007431D /* DataObserver.swift */; };
 		C4C0AF222708982A0007431D /* NSObjectHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF112708982A0007431D /* NSObjectHelpers.swift */; };
 		C4C0AF232708982A0007431D /* UIImageAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF122708982A0007431D /* UIImageAdditions.swift */; };
-		C4C0AF242708982A0007431D /* DateAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF132708982A0007431D /* DateAdditions.swift */; };
 		C4C0AF252708982A0007431D /* ImageViewAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF142708982A0007431D /* ImageViewAdditions.swift */; };
-		C4C0AF262708982A0007431D /* ObjectCodingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AF152708982A0007431D /* ObjectCodingHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +117,12 @@
 		C43151E62709954500687452 /* ImageDownloader.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ImageDownloader.xcframework; sourceTree = "<group>"; };
 		C43151E92709963B00687452 /* ImageDownloader.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ImageDownloader.zip; sourceTree = "<group>"; };
 		C43151EF2709B2AA00687452 /* XCTestExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestExtention.swift; sourceTree = "<group>"; };
+		C43151F12709C6E200687452 /* InternetConnectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectionTests.swift; sourceTree = "<group>"; };
+		C43151F32709D74F00687452 /* MockData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MockData.json; sourceTree = "<group>"; };
+		C43151F62709DD6200687452 /* ContentListTableViewPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListTableViewPresenterMock.swift; sourceTree = "<group>"; };
+		C43151F82709DF5700687452 /* ContentListTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListTableViewControllerTests.swift; sourceTree = "<group>"; };
+		C43151FA2709E6EE00687452 /* ContentDetailsTableViewPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailsTableViewPresenterMock.swift; sourceTree = "<group>"; };
+		C43151FC2709E84800687452 /* ContentDetailTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailTableViewControllerTests.swift; sourceTree = "<group>"; };
 		C4C0AEC42708976C0007431D /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C0AEC72708976C0007431D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4C0AEC92708976C0007431D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,7 +135,6 @@
 		C4C0AEE4270897740007431D /* DemoAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C0AEE8270897740007431D /* DemoAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAppUITests.swift; sourceTree = "<group>"; };
 		C4C0AEEA270897740007431D /* DemoAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		C4C0AF032708982A0007431D /* JsonParametersEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonParametersEncoding.swift; sourceTree = "<group>"; };
 		C4C0AF042708982A0007431D /* ParametersEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
 		C4C0AF052708982A0007431D /* UrlParametersEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlParametersEncoding.swift; sourceTree = "<group>"; };
 		C4C0AF072708982A0007431D /* RequestFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFeature.swift; sourceTree = "<group>"; };
@@ -134,9 +143,7 @@
 		C4C0AF0C2708982A0007431D /* DataObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataObserver.swift; sourceTree = "<group>"; };
 		C4C0AF112708982A0007431D /* NSObjectHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectHelpers.swift; sourceTree = "<group>"; };
 		C4C0AF122708982A0007431D /* UIImageAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageAdditions.swift; sourceTree = "<group>"; };
-		C4C0AF132708982A0007431D /* DateAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateAdditions.swift; sourceTree = "<group>"; };
 		C4C0AF142708982A0007431D /* ImageViewAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewAdditions.swift; sourceTree = "<group>"; };
-		C4C0AF152708982A0007431D /* ObjectCodingHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCodingHelpers.swift; sourceTree = "<group>"; };
 		CAA6648431A775FE36DC70B9 /* Pods-DemoAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoAppTests.debug.xcconfig"; path = "Target Support Files/Pods-DemoAppTests/Pods-DemoAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CB1E258ECE2D35BC338F5B3A /* Pods-DemoApp-DemoAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoApp-DemoAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-DemoApp-DemoAppUITests/Pods-DemoApp-DemoAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D4F1A7EA5CEFA490F75B5BF8 /* Pods-DemoAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoAppTests.release.xcconfig"; path = "Target Support Files/Pods-DemoAppTests/Pods-DemoAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -187,6 +194,7 @@
 		C431515C27089C8B00687452 /* DetailScreen */ = {
 			isa = PBXGroup;
 			children = (
+				C43151FA2709E6EE00687452 /* ContentDetailsTableViewPresenterMock.swift */,
 				C43151942708EAFE00687452 /* ContentDetailTableViewController.swift */,
 				C43151952708EAFE00687452 /* ContentDetailTableViewController.xib */,
 			);
@@ -196,6 +204,7 @@
 		C431515D27089CE100687452 /* ContentListScreen */ = {
 			isa = PBXGroup;
 			children = (
+				C43151F62709DD6200687452 /* ContentListTableViewPresenterMock.swift */,
 				C431516027089CF900687452 /* ContentListTableViewController.swift */,
 			);
 			path = ContentListScreen;
@@ -274,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				C43151E92709963B00687452 /* ImageDownloader.zip */,
+				C43151F32709D74F00687452 /* MockData.json */,
 			);
 			path = ExternalSampleCode;
 			sourceTree = "<group>";
@@ -331,6 +341,9 @@
 			children = (
 				C43151EE2709B2AA00687452 /* XCTestExtention */,
 				C4C0AEDE270897740007431D /* DemoAppTests.swift */,
+				C43151F12709C6E200687452 /* InternetConnectionTests.swift */,
+				C43151F82709DF5700687452 /* ContentListTableViewControllerTests.swift */,
+				C43151FC2709E84800687452 /* ContentDetailTableViewControllerTests.swift */,
 			);
 			path = DemoAppTests;
 			sourceTree = "<group>";
@@ -423,7 +436,6 @@
 		C4C0AF022708982A0007431D /* Encodoing */ = {
 			isa = PBXGroup;
 			children = (
-				C4C0AF032708982A0007431D /* JsonParametersEncoding.swift */,
 				C4C0AF042708982A0007431D /* ParametersEncoding.swift */,
 				C4C0AF052708982A0007431D /* UrlParametersEncoding.swift */,
 			);
@@ -469,9 +481,7 @@
 			children = (
 				C4C0AF112708982A0007431D /* NSObjectHelpers.swift */,
 				C4C0AF122708982A0007431D /* UIImageAdditions.swift */,
-				C4C0AF132708982A0007431D /* DateAdditions.swift */,
 				C4C0AF142708982A0007431D /* ImageViewAdditions.swift */,
-				C4C0AF152708982A0007431D /* ObjectCodingHelpers.swift */,
 				C431518A2708CD8700687452 /* ErrorAdditions.swift */,
 			);
 			path = Categories;
@@ -499,8 +509,8 @@
 				C4C0AEC02708976C0007431D /* Sources */,
 				C4C0AEC12708976C0007431D /* Frameworks */,
 				C4C0AEC22708976C0007431D /* Resources */,
-				D88D5E1B962C4F8ED981D751 /* [CP] Embed Pods Frameworks */,
 				C43151E02709939800687452 /* Embed Frameworks */,
+				2835552E25C2347E24FBF04C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -538,7 +548,7 @@
 				C4C0AEE0270897740007431D /* Sources */,
 				C4C0AEE1270897740007431D /* Frameworks */,
 				C4C0AEE2270897740007431D /* Resources */,
-				20B4D01D252B1017E7FB95FB /* [CP] Embed Pods Frameworks */,
+				924E4C05D59FDFF9053C0AAB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -599,6 +609,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C431519F2708EE5400687452 /* ContentDetailTableViewCell.xib in Resources */,
+				C43151F42709D74F00687452 /* MockData.json in Resources */,
 				C4C0AED4270897710007431D /* LaunchScreen.storyboard in Resources */,
 				C4C0AED1270897710007431D /* Assets.xcassets in Resources */,
 				C43151972708EAFE00687452 /* ContentDetailTableViewController.xib in Resources */,
@@ -612,6 +623,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C43151F52709D74F00687452 /* MockData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,21 +637,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		20B4D01D252B1017E7FB95FB /* [CP] Embed Pods Frameworks */ = {
+		2835552E25C2347E24FBF04C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DemoApp-DemoAppUITests/Pods-DemoApp-DemoAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DemoApp/Pods-DemoApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DemoApp-DemoAppUITests/Pods-DemoApp-DemoAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DemoApp/Pods-DemoApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DemoApp-DemoAppUITests/Pods-DemoApp-DemoAppUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DemoApp/Pods-DemoApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8B0482B2D1E953F3B64F09A4 /* [CP] Check Pods Manifest.lock */ = {
@@ -664,6 +676,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		924E4C05D59FDFF9053C0AAB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DemoApp-DemoAppUITests/Pods-DemoApp-DemoAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DemoApp-DemoAppUITests/Pods-DemoApp-DemoAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DemoApp-DemoAppUITests/Pods-DemoApp-DemoAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B5F22E1EF99B28C33E07679E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -684,23 +713,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D88D5E1B962C4F8ED981D751 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DemoApp/Pods-DemoApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DemoApp/Pods-DemoApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DemoApp/Pods-DemoApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EC9B29B398B5C56F80B176FE /* [CP] Check Pods Manifest.lock */ = {
@@ -733,12 +745,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C43151862708BA0A00687452 /* UIAlertControllerAdditions.swift in Sources */,
-				C4C0AF192708982A0007431D /* JsonParametersEncoding.swift in Sources */,
 				C4C0AF252708982A0007431D /* ImageViewAdditions.swift in Sources */,
 				C431516127089CF900687452 /* ContentListTableViewController.swift in Sources */,
 				C4C0AF1C2708982A0007431D /* RequestFeature.swift in Sources */,
 				C4C0AF232708982A0007431D /* UIImageAdditions.swift in Sources */,
-				C4C0AF242708982A0007431D /* DateAdditions.swift in Sources */,
 				C43151D827098D9A00687452 /* ContentRequest.swift in Sources */,
 				C43151692708A1D200687452 /* ContentResult.swift in Sources */,
 				C4C0AF1B2708982A0007431D /* UrlParametersEncoding.swift in Sources */,
@@ -749,6 +759,7 @@
 				C43151672708A04D00687452 /* ContentsViewModel.swift in Sources */,
 				C4C0AF1F2708982A0007431D /* DataObserver.swift in Sources */,
 				C43151962708EAFE00687452 /* ContentDetailTableViewController.swift in Sources */,
+				C43151FB2709E6EE00687452 /* ContentDetailsTableViewPresenterMock.swift in Sources */,
 				C4C0AF1A2708982A0007431D /* ParametersEncoding.swift in Sources */,
 				C431518B2708CD8700687452 /* ErrorAdditions.swift in Sources */,
 				C43151892708C8B500687452 /* InternetHandler.swift in Sources */,
@@ -757,8 +768,8 @@
 				C43151DC27098E4700687452 /* NetworkHandler.swift in Sources */,
 				C43151842708AECE00687452 /* UIRefreshControlAdditions.swift in Sources */,
 				C4C0AECA2708976C0007431D /* SceneDelegate.swift in Sources */,
+				C43151F72709DD6200687452 /* ContentListTableViewPresenterMock.swift in Sources */,
 				C4C0AF1E2708982A0007431D /* Define.swift in Sources */,
-				C4C0AF262708982A0007431D /* ObjectCodingHelpers.swift in Sources */,
 				C431519E2708EE5400687452 /* ContentDetailTableViewCell.swift in Sources */,
 				C4C0AF1D2708982A0007431D /* RequestInfo.swift in Sources */,
 				C431516527089DF700687452 /* ContentTableViewCell.swift in Sources */,
@@ -769,7 +780,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C43151FD2709E84800687452 /* ContentDetailTableViewControllerTests.swift in Sources */,
 				C4C0AEDF270897740007431D /* DemoAppTests.swift in Sources */,
+				C43151F92709DF5700687452 /* ContentListTableViewControllerTests.swift in Sources */,
+				C43151F22709C6E200687452 /* InternetConnectionTests.swift in Sources */,
 				C43151F02709B2AA00687452 /* XCTestExtention.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

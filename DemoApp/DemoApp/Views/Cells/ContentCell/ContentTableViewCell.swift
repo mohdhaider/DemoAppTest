@@ -22,6 +22,7 @@ class ContentTableViewCell: UITableViewCell {
         // Initialization code
         
         resultImage.layer.cornerRadius = 4.0
+        resultImage.setImage(forUrl: nil, placeholderImage: UIImage.placeholderImage())
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

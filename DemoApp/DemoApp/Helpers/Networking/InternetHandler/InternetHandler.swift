@@ -11,13 +11,15 @@ class InternetHandler: NSObject {
     
     // MARK: - Variables -
     
+    private lazy var connection = reachabilityManager?.connection
+    
     private var isInternetConnectionAvailableTemp:Bool = false
     @objc var isInternetConnectionAvailable:Bool{
         set {
             isInternetConnectionAvailableTemp = newValue
         }
         get{
-            if let connection = reachabilityManager?.connection,
+            if let connection = connection,
                connection != .unavailable {
 
                 if !isInternetConnectionAvailableTemp {
@@ -50,7 +52,7 @@ class InternetHandler: NSObject {
         }
         get{
             if !isInternetAvailableViaMobileNetworkTemp,
-               let connection = reachabilityManager?.connection,
+               let connection = connection,
                connection == .cellular {
                 
                 isInternetAvailableViaMobileNetworkTemp = true
@@ -66,7 +68,7 @@ class InternetHandler: NSObject {
         }
         get{
             if !isInternetAvailableViaWifiTemp,
-               let connection = reachabilityManager?.connection,
+               let connection = connection,
                connection == .wifi {
                 
                 isInternetAvailableViaWifiTemp = true
@@ -84,9 +86,6 @@ class InternetHandler: NSObject {
             }
             return reachabilityManagerTemp
         }
-        set {
-            reachabilityManagerTemp = newValue
-        }
     }
     
     private var networkManager:Reachability?
@@ -98,11 +97,9 @@ class InternetHandler: NSObject {
     
     // MARK: - Class Helper Methods -
 
-    private func handleReachabilityStatus(_ reachability:Reachability) {
+    private func handleReachabilityStatus(_ connection:Reachability.Connection) {
         
         moveToMainThread{[weak self] in
-            
-            let connection = reachability.connection
             
             switch connection {
             case .wifi:
@@ -149,72 +146,106 @@ class InternetHandler: NSObject {
     @objc private func reachabilityChanged(note: Notification) {
         
         if let reachability = note.object as? Reachability {
-            handleReachabilityStatus(reachability)
+            handleReachabilityStatus(reachability.connection)
+        }
+    }
+}
+
+// MARK:- Mock tests -
+
+extension InternetHandler {
+    
+    func makeInternetNotAvailable() {
+        
+        connection = .unavailable
+        isInternetConnectionAvailable = false
+    }
+    
+    func makeInternetAvailable() {
+        
+        connection = .wifi
+        isInternetConnectionAvailable = true
+    }
+    
+    func checkInternetConnectionCases(_ completion:((Bool) -> Void)?) {
+        
+        let expectedCount = 4
+        var successCount = 0
+        
+        connection = .unavailable
+        isInternetConnectionAvailableTemp = true
+        
+        Logger.printLog("1 isInternetConnectionAvailable = \(isInternetConnectionAvailable)")
+        
+        if isInternetConnectionAvailable == false {
+            successCount += 1
+        }
+        
+        connection = .wifi
+        isInternetConnectionAvailableTemp = false
+        
+        Logger.printLog("2 isInternetConnectionAvailable = \(isInternetConnectionAvailable)")
+        
+        if isInternetConnectionAvailable == true {
+            successCount += 1
+        }
+
+        connection = .wifi
+        isInternetAvailableViaWifiTemp = false
+        
+        Logger.printLog("isInternetAvailableViaWifi = \(isInternetAvailableViaWifi)")
+        
+        if isInternetAvailableViaWifi == true {
+            successCount += 1
+        }
+        
+        connection = .cellular
+        isInternetAvailableViaMobileNetworkTemp = false
+        
+        Logger.printLog("isInternetAvailableViaMobileNetwork = \(isInternetAvailableViaMobileNetwork)")
+        
+        if isInternetAvailableViaMobileNetwork == true {
+            successCount += 1
+        }
+        
+        callCodeBlock(afterDelay: 5) {
+            completion?(successCount == expectedCount)
         }
     }
     
-    func checkNetworkAvailability(_ completion:@escaping ((Bool) -> Void)) {
+    func checkReachabilityStatusIfWifiAvailable() -> Bool {
         
-        if self == InternetHandler.shared {
-            moveToMainThread{[weak self] in
-                completion(self?.isInternetConnectionAvailable ?? false)
-            }
-        } else {
-            callCodeBlock(afterDelay: 0.2) {[weak self] in
-                
-                if self?.isInternetConnectionAvailable ?? false {
-                    self?.moveToMainThread{
-                        completion(true)
-                    }
-                }
-                else {
-                    self?.startNetworkReachabilityObserver()
-                    
-                    self?.networkManager = try? Reachability()
-                    
-                    func handleReachabilityStatus(_ reachability:Reachability) {
-                        
-                        self?.moveToMainThread{
-                            
-                            self?.networkManager = nil
-                            
-                            let status = reachability.connection
-                            
-                            switch status {
-                                case .wifi:
-                                    
-                                    completion(true)
-                                    
-                                case .cellular:
-                                    
-                                    completion(true)
-                                    
-                                case .unavailable:
-                                    
-                                    completion(false)
-                                default:
-                                    completion(false)
-                            }
-                        }
-                    }
-                    
-                    self?.networkManager?.whenReachable = { (status) in
-                        
-                        if let networkManager = self?.networkManager {
-                            handleReachabilityStatus(networkManager)
-                        }
-                    }
-                    
-                    self?.networkManager?.whenUnreachable = { (status) in
-                        
-                        if let networkManager = self?.networkManager {
-                            handleReachabilityStatus(networkManager)
-                        }
-                    }
-                    
-                    try? self?.networkManager?.startNotifier()
-                }
-            }
+        if var connection = reachabilityManager?.connection {
+            
+            connection = .wifi
+            
+            handleReachabilityStatus(connection)
         }
+        
+        return isInternetAvailableViaWifi
+    }
+    
+    func checkReachabilityStatusIfCellularAvailable() -> Bool {
+        
+        if var connection = reachabilityManager?.connection {
+            
+            connection = .cellular
+            
+            handleReachabilityStatus(connection)
+        }
+        
+        return isInternetAvailableViaMobileNetwork
+    }
+    
+    func checkNoInternetIfConnectionUnavailable() -> Bool {
+        
+        if var connection = reachabilityManager?.connection {
+            
+            connection = .unavailable
+            
+            handleReachabilityStatus(connection)
+        }
+        
+        return isInternetConnectionAvailable
     }
 }
