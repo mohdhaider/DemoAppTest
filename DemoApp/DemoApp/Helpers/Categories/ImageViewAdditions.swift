@@ -22,6 +22,13 @@ extension UIImageView {
             self.image = image
         } else {
             self.image = placeholderImage
+            
+            ImageDownloadManager.manager.load(urlString: strUrl as NSString) { url, image in
+                
+                if url == (strUrl as NSString) {
+                    self.image = image ?? placeholderImage
+                }
+            }
         }
     }
 }
