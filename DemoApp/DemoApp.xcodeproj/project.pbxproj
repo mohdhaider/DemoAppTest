@@ -31,6 +31,7 @@
 		C43151DC27098E4700687452 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151DB27098E4700687452 /* NetworkHandler.swift */; };
 		C43151E72709954500687452 /* ImageDownloader.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43151E62709954500687452 /* ImageDownloader.xcframework */; };
 		C43151EA2709963B00687452 /* ImageDownloader.zip in Resources */ = {isa = PBXBuildFile; fileRef = C43151E92709963B00687452 /* ImageDownloader.zip */; };
+		C43151F02709B2AA00687452 /* XCTestExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151EF2709B2AA00687452 /* XCTestExtention.swift */; };
 		C4C0AEC82708976C0007431D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC72708976C0007431D /* AppDelegate.swift */; };
 		C4C0AECA2708976C0007431D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC92708976C0007431D /* SceneDelegate.swift */; };
 		C4C0AECF2708976C0007431D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C0AECD2708976C0007431D /* Main.storyboard */; };
@@ -111,6 +112,7 @@
 		C43151DB27098E4700687452 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		C43151E62709954500687452 /* ImageDownloader.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ImageDownloader.xcframework; sourceTree = "<group>"; };
 		C43151E92709963B00687452 /* ImageDownloader.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ImageDownloader.zip; sourceTree = "<group>"; };
+		C43151EF2709B2AA00687452 /* XCTestExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestExtention.swift; sourceTree = "<group>"; };
 		C4C0AEC42708976C0007431D /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C0AEC72708976C0007431D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4C0AEC92708976C0007431D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -268,19 +270,20 @@
 			path = ContentDetailCell;
 			sourceTree = "<group>";
 		};
-		C43151A02709705A00687452 /* ImageManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ImageManager;
-			sourceTree = "<group>";
-		};
 		C43151E82709961A00687452 /* ExternalSampleCode */ = {
 			isa = PBXGroup;
 			children = (
 				C43151E92709963B00687452 /* ImageDownloader.zip */,
 			);
 			path = ExternalSampleCode;
+			sourceTree = "<group>";
+		};
+		C43151EE2709B2AA00687452 /* XCTestExtention */ = {
+			isa = PBXGroup;
+			children = (
+				C43151EF2709B2AA00687452 /* XCTestExtention.swift */,
+			);
+			path = XCTestExtention;
 			sourceTree = "<group>";
 		};
 		C4C0AEBB2708976C0007431D = {
@@ -326,6 +329,7 @@
 		C4C0AEDD270897740007431D /* DemoAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				C43151EE2709B2AA00687452 /* XCTestExtention */,
 				C4C0AEDE270897740007431D /* DemoAppTests.swift */,
 			);
 			path = DemoAppTests;
@@ -369,7 +373,6 @@
 		C4C0AEFA2708982A0007431D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				C43151A02709705A00687452 /* ImageManager */,
 				C43151982708EC4800687452 /* Router */,
 				C4C0AEFB2708982A0007431D /* Networking */,
 				C4C0AF092708982A0007431D /* Defines */,
@@ -767,6 +770,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4C0AEDF270897740007431D /* DemoAppTests.swift in Sources */,
+				C43151F02709B2AA00687452 /* XCTestExtention.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

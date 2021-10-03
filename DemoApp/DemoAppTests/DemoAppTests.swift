@@ -18,9 +18,32 @@ class DemoAppTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testFreshContentApi() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        var fetchCatsExpectations: XCTestExpectation?
+        
+        let viewModel = ContentsViewModel()
+        
+        viewModel.viewModelCallbacks.bind { result in
+            
+            if let message = result as? [ContentResult],
+               message.count > 0 {
+                
+                fetchCatsExpectations?.fulfill()
+            }
+        }
+        
+        XCTContext.runActivity(named: "Fetch new results") { _ in
+            
+            waitForTimeout(for: 10,
+                           callback: { (expectation) in
+                            fetchCatsExpectations = expectation
+                
+                viewModel.getSearchResults()
+            })
+        }
     }
 
     func testPerformanceExample() throws {
