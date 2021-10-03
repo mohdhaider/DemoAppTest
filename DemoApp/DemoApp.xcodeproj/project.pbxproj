@@ -30,6 +30,7 @@
 		C43151DA27098E1700687452 /* NetworkingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151D927098E1700687452 /* NetworkingHelpers.swift */; };
 		C43151DC27098E4700687452 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151DB27098E4700687452 /* NetworkHandler.swift */; };
 		C43151E72709954500687452 /* ImageDownloader.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43151E62709954500687452 /* ImageDownloader.xcframework */; };
+		C43151EA2709963B00687452 /* ImageDownloader.zip in Resources */ = {isa = PBXBuildFile; fileRef = C43151E92709963B00687452 /* ImageDownloader.zip */; };
 		C4C0AEC82708976C0007431D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC72708976C0007431D /* AppDelegate.swift */; };
 		C4C0AECA2708976C0007431D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC92708976C0007431D /* SceneDelegate.swift */; };
 		C4C0AECF2708976C0007431D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C0AECD2708976C0007431D /* Main.storyboard */; };
@@ -109,6 +110,7 @@
 		C43151D927098E1700687452 /* NetworkingHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingHelpers.swift; sourceTree = "<group>"; };
 		C43151DB27098E4700687452 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		C43151E62709954500687452 /* ImageDownloader.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ImageDownloader.xcframework; sourceTree = "<group>"; };
+		C43151E92709963B00687452 /* ImageDownloader.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ImageDownloader.zip; sourceTree = "<group>"; };
 		C4C0AEC42708976C0007431D /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C0AEC72708976C0007431D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4C0AEC92708976C0007431D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -273,9 +275,18 @@
 			path = ImageManager;
 			sourceTree = "<group>";
 		};
+		C43151E82709961A00687452 /* ExternalSampleCode */ = {
+			isa = PBXGroup;
+			children = (
+				C43151E92709963B00687452 /* ImageDownloader.zip */,
+			);
+			path = ExternalSampleCode;
+			sourceTree = "<group>";
+		};
 		C4C0AEBB2708976C0007431D = {
 			isa = PBXGroup;
 			children = (
+				C43151E82709961A00687452 /* ExternalSampleCode */,
 				C4C0AEC62708976C0007431D /* DemoApp */,
 				C4C0AEDD270897740007431D /* DemoAppTests */,
 				C4C0AEE7270897740007431D /* DemoAppUITests */,
@@ -590,6 +601,7 @@
 				C43151972708EAFE00687452 /* ContentDetailTableViewController.xib in Resources */,
 				C43151902708D78800687452 /* StatusTableViewCell.xib in Resources */,
 				C4C0AECF2708976C0007431D /* Main.storyboard in Resources */,
+				C43151EA2709963B00687452 /* ImageDownloader.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
