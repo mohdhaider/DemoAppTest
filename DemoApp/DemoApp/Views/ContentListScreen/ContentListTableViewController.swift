@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ImageDownloader
 
 protocol ContentCellInfoProtocol {
     var imageUrl:String? {get}

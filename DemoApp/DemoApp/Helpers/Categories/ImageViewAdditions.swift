@@ -7,8 +7,8 @@
 
 import Foundation
 import UIKit
-//import Kingfisher
-//
+import ImageDownloader
+
 extension UIImageView {
 
     func setImage(forUrl strUrl: String?, placeholderImage: UIImage?) {
