@@ -11,9 +11,9 @@ class ContentsViewModel: NSObject {
 
     // MARK:- Variables -
     
-    private let intractor: NetworkIntractor<TaskRequest> = NetworkIntractor()
+    private let handler: NetworkHandler<ContentRequest> = NetworkHandler()
     
-    private let networkManager = NetworkManager()
+    private let helper = NetworkingHelpers()
     
     var viewModelCallbacks = BindingBox<Any?>(nil)
     
@@ -79,7 +79,7 @@ class ContentsViewModel: NSObject {
 
                 selfObj.callCodeBlock(afterDelay: 2.0) {
                     
-                    selfObj.networkManager.fetchContent(selfObj.intractor, .fetchData(page: selfObj.pageNum)) {[weak self] (data, response, error) in
+                    selfObj.helper.fetchContent(selfObj.handler, .fetchData(page: selfObj.pageNum)) {[weak self] (data, response, error) in
                         
                         self?.fetchRule = .processFinished
                         

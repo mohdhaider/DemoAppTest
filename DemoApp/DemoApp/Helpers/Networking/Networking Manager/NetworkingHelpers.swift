@@ -5,8 +5,15 @@
 //  Created by Haider on 03/10/21.
 //
 
-import UIKit
+import Foundation
 
-class NetworkingHelpers: NSObject {
-
+struct NetworkingHelpers {
+    
+    func fetchContent(_ interactor:NetworkHandler<ContentRequest>,_ info: ContentRequest, completionBlock: @escaping NetworkRequestCompletion) {
+        
+        interactor.request(info) { (data, response, error) in
+            
+            completionBlock(data, response, error)
+        }
+    }
 }
