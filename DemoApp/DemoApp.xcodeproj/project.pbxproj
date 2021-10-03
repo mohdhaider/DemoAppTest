@@ -39,6 +39,7 @@
 		C43151F92709DF5700687452 /* ContentListTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151F82709DF5700687452 /* ContentListTableViewControllerTests.swift */; };
 		C43151FB2709E6EE00687452 /* ContentDetailsTableViewPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151FA2709E6EE00687452 /* ContentDetailsTableViewPresenterMock.swift */; };
 		C43151FD2709E84800687452 /* ContentDetailTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151FC2709E84800687452 /* ContentDetailTableViewControllerTests.swift */; };
+		C43151FF270A360400687452 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43151FE270A360400687452 /* README.md */; };
 		C4C0AEC82708976C0007431D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC72708976C0007431D /* AppDelegate.swift */; };
 		C4C0AECA2708976C0007431D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC92708976C0007431D /* SceneDelegate.swift */; };
 		C4C0AECF2708976C0007431D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C0AECD2708976C0007431D /* Main.storyboard */; };
@@ -123,6 +124,7 @@
 		C43151F82709DF5700687452 /* ContentListTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListTableViewControllerTests.swift; sourceTree = "<group>"; };
 		C43151FA2709E6EE00687452 /* ContentDetailsTableViewPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailsTableViewPresenterMock.swift; sourceTree = "<group>"; };
 		C43151FC2709E84800687452 /* ContentDetailTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailTableViewControllerTests.swift; sourceTree = "<group>"; };
+		C43151FE270A360400687452 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		C4C0AEC42708976C0007431D /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C0AEC72708976C0007431D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4C0AEC92708976C0007431D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				C4C0AED0270897710007431D /* Assets.xcassets */,
 				C4C0AED2270897710007431D /* LaunchScreen.storyboard */,
 				C4C0AED5270897710007431D /* Info.plist */,
+				C43151FE270A360400687452 /* README.md */,
 			);
 			path = DemoApp;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				C4C0AED1270897710007431D /* Assets.xcassets in Resources */,
 				C43151972708EAFE00687452 /* ContentDetailTableViewController.xib in Resources */,
 				C43151902708D78800687452 /* StatusTableViewCell.xib in Resources */,
+				C43151FF270A360400687452 /* README.md in Resources */,
 				C4C0AECF2708976C0007431D /* Main.storyboard in Resources */,
 				C43151EA2709963B00687452 /* ImageDownloader.zip in Resources */,
 			);
