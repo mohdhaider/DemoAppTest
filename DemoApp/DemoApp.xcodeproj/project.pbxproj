@@ -26,6 +26,8 @@
 		C431519A2708EC6000687452 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151992708EC6000687452 /* Router.swift */; };
 		C431519E2708EE5400687452 /* ContentDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C431519C2708EE5400687452 /* ContentDetailTableViewCell.swift */; };
 		C431519F2708EE5400687452 /* ContentDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C431519D2708EE5400687452 /* ContentDetailTableViewCell.xib */; };
+		C43151A22709733C00687452 /* ImageDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151A12709733C00687452 /* ImageDownloadManager.swift */; };
+		C43151A827097D4A00687452 /* ImageNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43151A727097D4A00687452 /* ImageNetworkLayer.swift */; };
 		C4C0AEC82708976C0007431D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC72708976C0007431D /* AppDelegate.swift */; };
 		C4C0AECA2708976C0007431D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0AEC92708976C0007431D /* SceneDelegate.swift */; };
 		C4C0AECF2708976C0007431D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C0AECD2708976C0007431D /* Main.storyboard */; };
@@ -92,6 +94,8 @@
 		C43151992708EC6000687452 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		C431519C2708EE5400687452 /* ContentDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailTableViewCell.swift; sourceTree = "<group>"; };
 		C431519D2708EE5400687452 /* ContentDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentDetailTableViewCell.xib; sourceTree = "<group>"; };
+		C43151A12709733C00687452 /* ImageDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadManager.swift; sourceTree = "<group>"; };
+		C43151A727097D4A00687452 /* ImageNetworkLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageNetworkLayer.swift; sourceTree = "<group>"; };
 		C4C0AEC42708976C0007431D /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C0AEC72708976C0007431D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4C0AEC92708976C0007431D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -252,6 +256,15 @@
 			path = ContentDetailCell;
 			sourceTree = "<group>";
 		};
+		C43151A02709705A00687452 /* ImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				C43151A12709733C00687452 /* ImageDownloadManager.swift */,
+				C43151A727097D4A00687452 /* ImageNetworkLayer.swift */,
+			);
+			path = ImageManager;
+			sourceTree = "<group>";
+		};
 		C4C0AEBB2708976C0007431D = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +350,7 @@
 		C4C0AEFA2708982A0007431D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C43151A02709705A00687452 /* ImageManager */,
 				C43151982708EC4800687452 /* Router */,
 				C4C0AEFB2708982A0007431D /* Networking */,
 				C4C0AF092708982A0007431D /* Defines */,
@@ -705,6 +719,7 @@
 				C4C0AF242708982A0007431D /* DateAdditions.swift in Sources */,
 				C43151692708A1D200687452 /* ContentResult.swift in Sources */,
 				C4C0AF1B2708982A0007431D /* UrlParametersEncoding.swift in Sources */,
+				C43151A22709733C00687452 /* ImageDownloadManager.swift in Sources */,
 				C43151932708E8DC00687452 /* Logger.swift in Sources */,
 				C431518F2708D78800687452 /* StatusTableViewCell.swift in Sources */,
 				C4C0AF172708982A0007431D /* NetworkIntractor.swift in Sources */,
@@ -721,6 +736,7 @@
 				C4C0AECA2708976C0007431D /* SceneDelegate.swift in Sources */,
 				C4C0AF1E2708982A0007431D /* Define.swift in Sources */,
 				C4C0AF212708982A0007431D /* UIViewControllerAdditions.swift in Sources */,
+				C43151A827097D4A00687452 /* ImageNetworkLayer.swift in Sources */,
 				C4C0AF262708982A0007431D /* ObjectCodingHelpers.swift in Sources */,
 				C431519E2708EE5400687452 /* ContentDetailTableViewCell.swift in Sources */,
 				C4C0AF1D2708982A0007431D /* RequestInfo.swift in Sources */,

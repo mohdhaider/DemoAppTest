@@ -67,6 +67,7 @@
                         <connections>
                             <outlet property="dataSource" destination="0AN-Zl-2Zf" id="R1y-mM-UbS"/>
                             <outlet property="delegate" destination="0AN-Zl-2Zf" id="FaC-ui-Ar4"/>
+                            <outlet property="prefetchDataSource" destination="0AN-Zl-2Zf" id="FSq-7V-Uaa"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="fAn-wM-sWm"/>

@@ -13,13 +13,16 @@ extension UIImageView {
 
     func setImage(forUrl strUrl: String?, placeholderImage: UIImage?) {
 
-        self.image = placeholderImage
-//        guard let url = strUrl, let imageUrl = URL(string: url) else {
-//            return
-//        }
-
-        //let resource = ImageResource(downloadURL: imageUrl, cacheKey: url)
-        //kf.setImage(with: resource)
+        guard let strUrl = strUrl, !strUrl.isEmpty else {
+            self.image = placeholderImage
+            return
+        }
+        
+        if let image = ImageDownloadManager.manager.loadCachedImage(urlString: strUrl as NSString) {
+            self.image = image
+        } else {
+            self.image = placeholderImage
+        }
     }
 }
 

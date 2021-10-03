@@ -316,9 +316,23 @@ extension ContentListTableViewController: UITableViewDataSourcePrefetching {
             
             if indexPath.section == TableSections.contents.rawValue,
                indexPath.row < viewModel.numberOfRecords(),
-               let _ = viewModel.recordForIndex(indexPath.row) {
+               let info = viewModel.recordForIndex(indexPath.row),
+               let imageUrl = info.imageUrl{
                 
-                
+                ImageDownloadManager.manager.load(
+                    urlString: imageUrl as NSString) {[weak self] _, _ in
+                        
+                        self?.moveToMainThread({
+                            
+                            if let cell = tableView.cellForRow(at: indexPath) as? ContentTableViewCell,
+                               indexPath.section == TableSections.contents.rawValue,
+                               indexPath.row < self?.viewModel.numberOfRecords() ?? 0,
+                               let info = self?.viewModel.recordForIndex(indexPath.row) {
+                                
+                                cell.populateInfo(info)
+                            }
+                        })
+                    }
             }
         }
     }
